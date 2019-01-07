@@ -38,7 +38,7 @@
 \DeclareAuthorVariable*{semester}
 \DeclareAuthorVariable*{year}
 \DeclareAuthorVariable*{paper}
-\DeclareAuthorVariable*{coursename}
+\DeclareAuthorVariable*{title}
 \DeclareAuthorVariable*{code}
 \DeclareAuthorVariable*{instructions}
 \DeclareAuthorVariable*{parts}
@@ -47,8 +47,6 @@
 \DeclareAuthorVariable*{hos}
 \DeclareAuthorVariable*{mc}
 \DeclareAuthorVariable*{iinvig}
-\DeclareAuthorVariable*{examname}
-\RequirePackage{caption}
 \RequirePackage{fancyhdr}
 \RequirePackage{ragged2e}
 \RequirePackage{tabularx}
@@ -65,35 +63,24 @@
 \regtotcounter{section}
 \SetWatermarkText{}
 \newtoggle{markingscheme}
-% If we don't want to show marks for each question separately, toggle 'questionmarks'
-\newtoggle{questionmarks}
 
 \titleformat{\section}
 \large{\textbf{Question \thesection:}}{0.5em}{\textbf{#1}}
 
 \newcounter{example}
-\newcounter{total}
-\newcommand{\solution}[1]{\iftoggle{solution}{\textbf{Solution:} #1}{}}
+\newcommand{\solution}[1]{\iftoggle{solution}{\textbf{Solution: #1}}{}}
 
-\newcommand{\ms}[1]{\iftoggle{markingscheme}{\textbf{Marking Scheme:} #1}{}}
+\newcommand{\ms}[1]{\iftoggle{markingscheme}{\textbf{Marking Scheme: #1}}{}}
 
-%\newcommand{\question}[2]{\item #1 ~\newline {\begin{FlushRight}\textbf{(#2)}\end{FlushRight}\addtocounter{example}{#2} \addtocounter{total}{#2}}}
-%\newcommand{\question}[2]{\item #1 ~\newline {\raggedleft{\textbf{(#2)}}\addtocounter{example}{#2} \addtocounter{total}{#2}}}
-%\newcommand{\question}[2]{\item #1 ~\newline {\hspace*{\fill}\textbf{(#2)}\addtocounter{example}{#2} \addtocounter{total}{#2}}}
-%\newcommand{\question}[2]{\item #1  {\hspace*{\fill}\textbf{(#2)~\newline}\addtocounter{example}{#2} \addtocounter{total}{#2}}}
-\newcommand{\question}[2]{\item #1  \addtocounter{example}{#2} \addtocounter{total}{#2} {\iftoggle{questionmarks}{\hspace*{\fill}\textbf{(#2)~\newline}}{}}}
-\newcommand{\samplequestion}[1]{\item #1}
+
+\newcommand{\question}[2]{\item #1 ~\newline {\hspace*{\fill}\textbf{(#2\%)}\addtocounter{example}{#2}}}
 
 \newcommand{\showsolutions}{\toggletrue{solution} \SetWatermarkText{!!! Not to be shown to students !!!}\SetWatermarkLightness{0.5}\SetWatermarkScale{2}}
 \newcommand{\showmarkingscheme}{\toggletrue{markingscheme}}
-\newcommand{\showquestionmarks}{\toggletrue{questionmarks}}
-\newcommand{\hidequestionmarks}{\togglefalse{questionmarks}}
 
 \renewcommand{\part}[1]{\section{#1}}
 
-%\newenvironment{questions}{\setcounter{example}{0}\begin{enumerate}}{~\newline \hspace*{\fill} \textbf{(Sub-total for the section: {\theexample})} \end{enumerate}}
-\newenvironment{questions}{\setcounter{example}{0}\begin{enumerate}}{~\newline \hspace*{\fill} \textbf{(Sub-total for the section: {\theexample})} \end{enumerate}}
-\newenvironment{samplequestions}{\togglefalse{questionmarks}\begin{enumerate}}{~\newline \end{enumerate}~\newline}
+\newenvironment{questions}{\setcounter{example}{0}\begin{enumerate}}{~\newline \hspace*{\fill} \textbf{(Total {\theexample}\%)} \end{enumerate}}
 
 \pagestyle{fancy}
 \lhead{BDIC}
@@ -120,7 +107,7 @@
 \rule{0.85\textwidth}{1pt}
 \end{center}
 
-{\large \textbf{SEMESTER {\ting@semester} {\ting@examname} - (\ting@year)}\par}
+{\large \textbf{SEMESTER {\ting@semester} FINAL EXAMINATION - (\ting@year)}\par}
 
 \begin{center}
 \rule{0.85\textwidth}{1pt}
@@ -129,7 +116,7 @@
 
 {\large \textbf{ School of \ting@school }\par}
 \vspace{0.5cm}
-{\LARGE \textbf{\ting@code} \textbf{\ting@coursename} \par}
+{\LARGE \textbf{\ting@code} \textbf{\ting@title} \par}
 \vspace{0.5cm}
 {\large \textbf{\ting@hos} \par}
 {\large \textbf{\ting@mc}* \par}
